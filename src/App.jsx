@@ -13,7 +13,6 @@ const defaultTodos = [
   { text: "Jump the rope", completed: false },
   { text: "Listen to milo j", completed: true },
   { text: "Make money", completed: true },
-
 ];
 
 function App() {
@@ -25,14 +24,31 @@ function App() {
   const totalTodos = todos.length;
 
   const searchingTodos = todos.filter((todo) => {
-    const todoText = removeAccents(todo.text.toLowerCase())
-    const searchText =  removeAccents(searchValue.toLocaleLowerCase());
+    const todoText = removeAccents(todo.text.toLowerCase());
+    const searchText = removeAccents(searchValue.toLocaleLowerCase());
     return todoText.includes(searchText);
   });
 
   function removeAccents(text) {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
+
+  const completeTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex((todo) => todo.text == text);
+
+    let completed = newTodos[todoIndex].completed;
+    newTodos[todoIndex].completed = !completed;
+    setTodos(newTodos);
+   
+  };
+
+  const deleteTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex((todo) => todo.text == text);
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos);
+  };
 
   return (
     <>
