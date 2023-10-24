@@ -16,10 +16,32 @@ const defaultTodos = [
 
 function App() {
 
+
+
+
+  const completeTodo = (text) => {
+    const newTodos = [...todos]
+    const todoIndex = newTodos.findIndex( 
+      (todo) => todo.text == text
+    );
+
+    let completed = newTodos[todoIndex].completed;
+    newTodos[todoIndex].completed = !completed;
+    saveTodos(newTodos);
+  }
+
+  const deleteTodo = (text) => {
+    const newTodos = [...todos]
+    const todoIndex = newTodos.findIndex( 
+      (todo) => todo.text == text
+    );
+    newTodos.splice(todoIndex,1)
+    saveTodos(newTodos)
+  }
+
   return (
     <>
-    <p>egrrdef</p>
-     <TodoCounter></TodoCounter>
+     <TodoCounter completed={completedTodo} total={totalTodos}/>
      <TodoSearch></TodoSearch>
 
     <TodoList>
@@ -28,8 +50,10 @@ function App() {
       key={todo.text}
       text={todo.text}
       completed={todo.completed}
+      onComplete={() => completeTodo(todo.text)}
+      onDelete={() => deleteTodo(todo.text)}
+
       />
-      
       )}
     </TodoList>
 

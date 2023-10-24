@@ -5,7 +5,9 @@ import '../../styles/createButton.css'
 function CreateButton() {
   return (
     <div>
-        <button className="createTask">+</button>
+        <button className="createTask"
+        onClick={() => {}}
+        >+</button>
     </div>
   )
 }
