@@ -4,7 +4,8 @@ import { TodoList } from "./components/Task/TodoList";
 import { TodoItem } from "./components/Task/TodoItem";
 import { CreateButton } from "./components/Buttons/CreateButton";
 
-import './App.css'
+import React from "react";
+import "./App.css";
 
 const defaultTodos = [
   { text: "Cook", completed: false },
@@ -12,55 +13,51 @@ const defaultTodos = [
   { text: "Jump the rope", completed: false },
   { text: "Listen to milo j", completed: true },
   { text: "Make money", completed: true },
+
 ];
 
 function App() {
+  const [searchValue, setSearchValue] = React.useState("");
+  const [todos, setTodos] = React.useState(defaultTodos);
 
+  const completedTodos = todos.filter((todo) => !!todo.completed).length;
 
+  const totalTodos = todos.length;
 
+  const searchingTodos = todos.filter((todo) => {
+    const todoText = removeAccents(todo.text.toLowerCase())
+    const searchText =  removeAccents(searchValue.toLocaleLowerCase());
+    return todoText.includes(searchText);
+  });
 
-  const completeTodo = (text) => {
-    const newTodos = [...todos]
-    const todoIndex = newTodos.findIndex( 
-      (todo) => todo.text == text
-    );
-
-    let completed = newTodos[todoIndex].completed;
-    newTodos[todoIndex].completed = !completed;
-    saveTodos(newTodos);
-  }
-
-  const deleteTodo = (text) => {
-    const newTodos = [...todos]
-    const todoIndex = newTodos.findIndex( 
-      (todo) => todo.text == text
-    );
-    newTodos.splice(todoIndex,1)
-    saveTodos(newTodos)
+  function removeAccents(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
   return (
     <>
-     <TodoCounter completed={completedTodo} total={totalTodos}/>
-     <TodoSearch></TodoSearch>
+      <TodoCounter completed={completedTodos} total={totalTodos} />
 
-    <TodoList>
-      {defaultTodos.map((todo) => 
-      <TodoItem
-      key={todo.text}
-      text={todo.text}
-      completed={todo.completed}
-      onComplete={() => completeTodo(todo.text)}
-      onDelete={() => deleteTodo(todo.text)}
+      <TodoSearch
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      ></TodoSearch>
 
-      />
-      )}
-    </TodoList>
+      <TodoList>
+        {searchingTodos.map((todo) => (
+          <TodoItem
+            key={todo.text}
+            text={todo.text}
+            completed={todo.completed}
+            onComplete={() => completeTodo(todo.text)}
+            onDelete={() => deleteTodo(todo.text)}
+          />
+        ))}
+      </TodoList>
 
-    <CreateButton />
-
+      <CreateButton />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
