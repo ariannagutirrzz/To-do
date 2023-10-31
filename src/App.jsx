@@ -7,30 +7,34 @@ import { CreateButton } from "./components/Buttons/CreateButton";
 import React from "react";
 import "./App.css";
 
-// const defaultTodos = [
-//   { text: "Cook", completed: false},
-//   { text: "Go to the gym", completed: true },
-//   { text: "Jump the rope", completed: false },
-//   { text: "Listen to milo j", completed: true },
-//   { text: "Make money", completed: true },
-// ];
+function useLocalStorage(itemName,initialValue) { 
 
-// localStorage.setItem("V1", JSON.stringify(defaultTodos));
+  const localStorageItem = localStorage.getItem(itemName);
+
+  let parsed;
+
+  if(!localStorageItem) {
+    localStorage.setItem(itemName, JSON.stringify([]));
+    parsed = [];
+  } else {
+    parsed = JSON.parse(localStorageItem)
+  }
+
+  const [item,setItem] = React.useState(parsed);  
+
+  const saveLocalStorage = (newItem) => {
+    localStorage.setItem(itemName, JSON.stringify(newItem));
+
+    setItem(newItem)
+  }
+
+  return [item,saveLocalStorage];
+};
 
 function App() {
 
-  const localStorageTodos = localStorage.getItem("V1");
-  let parsed;
-
-  if(!localStorageTodos) {
-    localStorage.setItem("V1", JSON.stringify([]));
-    parsed = [];
-  } else {
-    parsed = JSON.parse(localStorageTodos)
-  }
-
   const [searchValue, setSearchValue] = React.useState("");
-  const [todos, setTodos] = React.useState(parsed);
+  const [todos, saveLocalStorage] = useLocalStorage("V1",[]);
 
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
 
@@ -44,12 +48,6 @@ function App() {
 
   function removeAccents(text) {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }
-
-  const saveLocalStorage = (newTodos) => {
-    localStorage.setItem("V1", JSON.stringify(newTodos));
-
-    setTodos(newTodos)
   }
 
   const completeTodo = (text) => {
