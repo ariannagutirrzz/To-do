@@ -4,7 +4,11 @@ import { TodoList } from "./components/Task/TodoList";
 import { TodoItem } from "./components/Task/TodoItem";
 import { CreateButton } from "./components/Buttons/CreateButton";
 
+import './styles/styleSearch'
+
 function AppUI({
+    loading,
+    error,
     completedTodos,
     totalTodos,
     searchValue,
@@ -23,7 +27,9 @@ function AppUI({
       ></TodoSearch>
 
       <TodoList>
-        {searchingTodos.map((todo) => (
+        {loading && <p>cargando</p>}
+        {error && <p>error</p>}
+        {!loading && searchingTodos.length <= 0 ? <p>agrega todos</p> : searchingTodos.map((todo) => (
           <TodoItem
             key={todo.text}
             text={todo.text}
@@ -32,6 +38,7 @@ function AppUI({
             onDelete={() => deleteTodo(todo.text)}
           />
         ))}
+        
       </TodoList>
 
       <CreateButton />
