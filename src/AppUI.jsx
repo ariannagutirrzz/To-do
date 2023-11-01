@@ -4,8 +4,6 @@ import { TodoList } from "./components/Task/TodoList";
 import { TodoItem } from "./components/Task/TodoItem";
 import { CreateButton } from "./components/Buttons/CreateButton";
 
-import './styles/styleSearch'
-
 function AppUI({
     loading,
     error,
