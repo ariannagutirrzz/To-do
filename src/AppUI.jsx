@@ -3,6 +3,7 @@ import { TodoSearch } from "./components/TodoElements/TodoSearch";
 import { TodoList } from "./components/Task/TodoList";
 import { TodoItem } from "./components/Task/TodoItem";
 import { CreateButton } from "./components/Buttons/CreateButton";
+import { NoTodos } from "./components/NoTodos";
 
 function AppUI({
     loading,
@@ -25,9 +26,10 @@ function AppUI({
       ></TodoSearch>
 
       <TodoList>
-        {loading && <p>cargando</p>}
+        {loading && <NoTodos/>}
         {error && <p>error</p>}
-        {!loading && searchingTodos.length <= 0 ? <p>agrega todos</p> : searchingTodos.map((todo) => (
+        {(!loading && searchingTodos.length === 0) && <p>hola</p>}
+        {searchingTodos.length <= 0 ? <p>CREATE YOUR FIRST TODO</p>: searchingTodos.map((todo) => (
           <TodoItem
             key={todo.text}
             text={todo.text}
