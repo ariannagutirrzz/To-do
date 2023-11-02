@@ -1,4 +1,4 @@
-import './../styles/errorScreen.css'
+import '../../styles/errorScreen.css'
 
 function ErrorScreen () {
     return(

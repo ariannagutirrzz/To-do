@@ -6,11 +6,11 @@ import { TodoSearch } from "./components/TodoElements/TodoSearch";
 import { TodoList } from "./components/Task/TodoList";
 import { TodoItem } from "./components/Task/TodoItem";
 import { CreateButton } from "./components/Buttons/CreateButton";
-import { LoadingScreen } from "./components/LoadingScreen";
-import { ErrorScreen } from "./components/ErrorScreen";
-import { CreateTodo } from "./components/CreateTodo";
+import { LoadingScreen } from "./components/TodoElements/LoadingScreen";
+import { ErrorScreen } from "./components/TodoElements/ErrorScreen";
+import { CreateTodo } from "./components/TodoElements/CreateTodo";
 import { TodoContext } from "./components/TodoContext/TodoContext";
-
+import { Modal } from "./components/Modal/Modal";
 
 function AppUI() {
   const {
@@ -19,6 +19,8 @@ function AppUI() {
     searchingTodos,
     completeTodo,
     deleteTodo,
+    openModal,
+    setOpenModal,
   } = React.useContext(TodoContext)
 
   return (
@@ -42,6 +44,10 @@ function AppUI() {
       </TodoList>
 
       <CreateButton />
+
+      {openModal && (
+        <Modal>AGREGAR TODOS</Modal>
+      )}
     </>
   );
 
