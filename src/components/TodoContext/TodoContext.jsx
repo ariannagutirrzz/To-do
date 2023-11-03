@@ -5,7 +5,7 @@ const TodoContext = React.createContext();
 
 function Provider({ children }) {
     const [searchValue, setSearchValue] = React.useState("");
-    const [openModal, setOpenModal] = React.useState(true);
+    const [openModal, setOpenModal] = React.useState(false);
 
     const {
       item: todos, 
@@ -25,6 +25,15 @@ function Provider({ children }) {
   
     function removeAccents(text) {
       return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    const addTodo = (text) => {
+      const newTodos = [...todos];
+      newTodos.push({
+        text,
+        completed: false,
+      })
+      saveLocalStorage(newTodos);
     }
   
     const completeTodo = (text) => {
@@ -51,6 +60,7 @@ function Provider({ children }) {
           searchValue,
           setSearchValue,
           searchingTodos,
+          addTodo,
           completeTodo,
           deleteTodo,
           openModal,
