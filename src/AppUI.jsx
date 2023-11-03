@@ -9,8 +9,9 @@ import { CreateButton } from "./components/Buttons/CreateButton";
 import { LoadingScreen } from "./components/TodoElements/LoadingScreen";
 import { ErrorScreen } from "./components/TodoElements/ErrorScreen";
 import { CreateTodo } from "./components/TodoElements/CreateTodo";
-import { TodoContext } from "./components/TodoContext/TodoContext";
+import { Form } from "./components/Forms/Form";
 import { Modal } from "./components/Modal/Modal";
+import { TodoContext } from "./components/TodoContext/TodoContext";
 
 function AppUI() {
   const {
@@ -43,10 +44,14 @@ function AppUI() {
         
       </TodoList>
 
-      <CreateButton />
+      <CreateButton 
+      setOpenModal={setOpenModal}
+      />
 
       {openModal && (
-        <Modal>AGREGAR TODOS</Modal>
+        <Modal>
+          <Form></Form>
+        </Modal>
       )}
     </>
   );

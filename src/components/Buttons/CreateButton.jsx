@@ -1,14 +1,19 @@
-import React from 'react'
-import '../../styles/createButton.css'
+import React from "react";
+import "../../styles/createButton.css";
 
-function CreateButton() {
+function CreateButton({ setOpenModal }) {
   return (
     <div>
-        <button className="createTask"
-        onClick={() => {}}
-        >+</button>
+      <button
+        className="createTask"
+        onClick={() => {
+          setOpenModal((state) => !state);
+        }}
+      >
+        +
+      </button>
     </div>
-  )
+  );
 }
 
-export { CreateButton }
+export { CreateButton };
