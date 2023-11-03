@@ -1,6 +1,6 @@
 import React from "react";
 import { TodoContext } from "../TodoContext/TodoContext";
-import "../../styles/modal-styles.css";
+import "../../components/Modal/modal.css" 
 function Form() {
   const { 
     addTodo,
@@ -26,7 +26,7 @@ function Form() {
   return (
     <form onSubmit={onSubmit}>
       <label>Type your new todo</label>
-      <textarea placeholder="something" value={newTodoUser} onChange={onChange}>
+      <textarea placeholder="something" value={newTodoUser} onChange={onChange} required>
 
       </textarea>
 

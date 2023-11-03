@@ -29,10 +29,12 @@
     font-size: 28px;
   }
   
-  /* .search {
-    border-radius: 30px;
-    display: none;
-  } */
+  .search {
+    width: 90%;
+    height: 40px;
+    border-radius: 4px;
+    border: 2px solid black;
+  }
   
   .item {
     display: flex;

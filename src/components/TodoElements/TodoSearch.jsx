@@ -9,7 +9,7 @@ const {
 
   return (
     <input
-      placeholder="MAKE 10K"
+      placeholder="Search your todos here!"
       className="search"
       value={searchValue}
       onChange={(event) => {
