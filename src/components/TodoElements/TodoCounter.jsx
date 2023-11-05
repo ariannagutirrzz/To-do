@@ -9,7 +9,7 @@ function TodoCounter() {
 
     return (
         <h1>
-            {completedTodos == totalTodos ? 'You finished all your todos' : `You completed ${completedTodos} of ${totalTodos} todo's`}
+            {completedTodos == totalTodos ? 'TO DO' : `You completed ${completedTodos} of ${totalTodos} todo's`}
         </h1>
     )
 }
